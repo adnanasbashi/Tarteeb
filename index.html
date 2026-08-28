@@ -1,75 +1,32 @@
-// ===============================
-// TARTEEB PWA INSTALL
-// ===============================
+  // PWA Prompt Management
+  let deferredPrompt;
 
-window.deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent standard banner prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered on user action
+    deferredPrompt = e;
+    // Reveal the Install action button
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) installBtn.style.display = 'inline-block';
+  });
 
-window.addEventListener('beforeinstallprompt', function(event) {
-
-  console.log('Tarteeb: beforeinstallprompt fired');
-
-  // Prevent Chrome's automatic installation banner.
-  event.preventDefault();
-
-  // Save the event globally.
-  window.deferredPrompt = event;
-
-  // Show our Install button.
-  const installBtn = document.getElementById('installBtn');
-
-  if (installBtn) {
-    installBtn.style.display = 'inline-block';
+  async function installApp() {
+    if (!deferredPrompt) {
+      toast('App is already installed or prompt unavailable.');
+      return;
+    }
+    // Show prompt to user
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      toast('Thank you for installing Tarteeb!');
+    }
+    deferredPrompt = null;
+    document.getElementById('installBtn').style.display = 'none';
   }
 
-  console.log('Tarteeb: install prompt saved');
-});
-
-
-window.installApp = async function() {
-
-  console.log('Tarteeb: Install button clicked');
-
-  const promptEvent = window.deferredPrompt;
-
-  if (!promptEvent) {
-
-    console.log('Tarteeb: No install prompt available');
-
-    toast('Install option is not available yet.');
-
-    return;
-  }
-
-  // Show the browser installation dialog.
-  promptEvent.prompt();
-
-  const result = await promptEvent.userChoice;
-
-  console.log('Tarteeb: installation result:', result.outcome);
-
-  // The prompt can only be used once.
-  window.deferredPrompt = null;
-
-  const installBtn = document.getElementById('installBtn');
-
-  if (installBtn) {
-    installBtn.style.display = 'none';
-  }
-};
-
-
-window.addEventListener('appinstalled', function() {
-
-  console.log('Tarteeb: PWA installed successfully');
-
-  window.deferredPrompt = null;
-
-  const installBtn = document.getElementById('installBtn');
-
-  if (installBtn) {
-    installBtn.style.display = 'none';
-  }
-
-  toast('Tarteeb installed successfully!');
-
-});
+  window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    document.getElementById('installBtn').style.display = 'none';
+  });
