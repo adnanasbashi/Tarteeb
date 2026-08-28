@@ -401,7 +401,6 @@
         c.name_en || c.name_ar,
         '✨'
       ]);
-      
       cats = [['all', 'All', '✨'], ...dynamicCats];
       renderCats();
     }
@@ -545,20 +544,31 @@
       }
     });
 
-    // Save order to Supabase orders table matching existing schema
+    if (items.length === 0) {
+      toast('Your cart is empty');
+      return;
+    }
+
+    // Save order directly to Supabase orders table
+    const orderNumber = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
     const { data: orderData, error: orderError } = await supabaseClient
       .from('orders')
       .insert([{ 
-        total: totalAmount,
+        order_number: orderNumber,
         subtotal: totalAmount,
+        total: totalAmount,
         status: 'pending' 
       }])
       .select();
 
     if (orderError) {
       console.error("Order save error:", orderError);
-    } else {
-      console.log("Order saved successfully:", orderData);
+    } else if (orderData && orderData[0]) {
+      const orderId = orderData[0].id;
+      // Optionally insert line items into order_items table
+      const orderItems = items.map(item => ({ ...item, order_id: orderId }));
+      await supabaseClient.from('order_items').insert(orderItems);
+      console.log("Order saved successfully:", orderId);
     }
 
     // Format WhatsApp Message & Open
@@ -570,6 +580,9 @@
     msg += `Total: $${totalAmount.toFixed(2)}%0AFulfillment: ${fulfill}`;
 
     window.open('https://wa.me/' + WA + '?text=' + msg, '_blank');
+    cart = {};
+    document.getElementById('count').textContent = '0';
+    closeModal();
   }
 
   function openModal() { document.getElementById('modal').classList.add('show'); }
@@ -663,25 +676,6 @@
   function toggleMobileMenu() {
     const m = document.getElementById('mobileMenu');
     if (m) m.classList.toggle('open');
-  }
-
-  let deferredInstallPrompt = null;
-  window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-    const b = document.getElementById('installBtn');
-    if (b) b.style.display = 'inline-block';
-  });
-
-  function installApp() {
-    if (deferredInstallPrompt) {
-      deferredInstallPrompt.prompt();
-      deferredInstallPrompt.userChoice.then(() => {
-        deferredInstallPrompt = null;
-        const b = document.getElementById('installBtn');
-        if (b) b.style.display = 'none';
-      });
-    }
   }
 </script>
 </body>
