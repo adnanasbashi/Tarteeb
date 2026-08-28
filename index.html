@@ -13,10 +13,8 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="/icon-192.png">
-
   <meta name="theme-color" content="#53654a">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Tarteeb">
 
@@ -25,585 +23,503 @@
 
   <style>
     :root {
-      --bg: #f4f0e7;
-      --card: #fffdf8;
-      --ink: #211f1a;
-      --muted: #6e685e;
-      --sage: #53654a;
-      --sage2: #3e4c38;
-      --gold: #b67b24;
-      --clay: #b6533f;
-      --line: #d9d1c0;
-      --shadow: 0 10px 30px rgba(40,35,25,.08);
+      --bg:#f4f0e7;
+      --card:#fffdf8;
+      --ink:#211f1a;
+      --muted:#6e685e;
+      --sage:#53654a;
+      --sage2:#3e4c38;
+      --gold:#b67b24;
+      --clay:#b6533f;
+      --line:#d9d1c0;
+      --shadow:0 10px 30px rgba(40,35,25,.08);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing:border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior:smooth; }
 
     body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: Arial, sans-serif;
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:Arial,sans-serif;
     }
 
     body.ar {
-      font-family: Tahoma, Arial, sans-serif;
-      direction: rtl;
+      font-family:Tahoma,Arial,sans-serif;
+      direction:rtl;
     }
 
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
+    button,input,select,textarea { font:inherit; }
+    button { cursor:pointer; }
 
     .wrap {
-      max-width: 1160px;
-      margin: auto;
-      padding: 0 22px;
+      max-width:1160px;
+      margin:auto;
+      padding:0 22px;
     }
 
     .top {
-      background: var(--sage2);
-      color: #fff;
-      padding: 8px;
-      text-align: center;
-      font-size: 13px;
+      background:var(--sage2);
+      color:#fff;
+      padding:8px;
+      text-align:center;
+      font-size:13px;
     }
 
     .nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(244,240,231,.96);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(10px);
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(244,240,231,.96);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(10px);
     }
 
     .navin {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
     }
 
     .logo {
-      font-weight: 800;
-      font-size: 25px;
-      white-space: nowrap;
+      font-weight:800;
+      font-size:25px;
+      white-space:nowrap;
     }
 
-    .logo span {
-      color: var(--sage);
-    }
+    .logo span { color:var(--sage); }
 
     .links {
-      display: flex;
-      gap: 18px;
-      flex: 1;
+      display:flex;
+      gap:18px;
+      flex:1;
     }
 
     .links a {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 14px;
+      text-decoration:none;
+      color:var(--muted);
+      font-size:14px;
     }
 
     .actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      margin-left: auto;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-left:auto;
     }
 
     .pill {
-      border: 1px solid var(--line);
-      background: var(--card);
-      border-radius: 999px;
-      padding: 9px 13px;
+      border:1px solid var(--line);
+      background:var(--card);
+      border-radius:999px;
+      padding:9px 13px;
     }
 
     .cart {
-      background: var(--ink);
-      color: white;
-      border: 0;
-      border-radius: 999px;
-      padding: 10px 14px;
+      background:var(--ink);
+      color:#fff;
+      border:0;
+      border-radius:999px;
+      padding:10px 14px;
     }
 
     .count {
-      background: var(--gold);
-      padding: 2px 7px;
-      border-radius: 999px;
-      font-size: 11px;
+      background:var(--gold);
+      padding:2px 7px;
+      border-radius:999px;
+      font-size:11px;
     }
 
-    .hero {
-      padding: 58px 0 35px;
-    }
+    .hero { padding:58px 0 35px; }
 
     .hero-grid {
-      display: grid;
-      grid-template-columns: 1.3fr .7fr;
-      gap: 35px;
-      align-items: center;
+      display:grid;
+      grid-template-columns:1.3fr .7fr;
+      gap:35px;
+      align-items:center;
     }
 
     .eyebrow {
-      display: inline-block;
-      background: #e2e8dc;
-      color: var(--sage2);
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
+      display:inline-block;
+      background:#e2e8dc;
+      color:var(--sage2);
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
     }
 
     .hero h1 {
-      font-size: 50px;
-      line-height: 1.03;
-      margin: 18px 0 8px;
-      letter-spacing: -2px;
+      font-size:50px;
+      line-height:1.03;
+      margin:18px 0 8px;
+      letter-spacing:-2px;
     }
 
     .hero .ar {
-      font-size: 24px;
-      color: var(--sage2);
-      font-weight: 700;
+      font-size:24px;
+      color:var(--sage2);
+      font-weight:700;
     }
 
     .hero p {
-      color: var(--muted);
-      line-height: 1.65;
-      max-width: 650px;
+      color:var(--muted);
+      line-height:1.65;
+      max-width:650px;
     }
 
     .hero-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 25px;
-      box-shadow: var(--shadow);
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:25px;
+      box-shadow:var(--shadow);
     }
 
-    .hero-card b {
-      font-size: 22px;
-    }
+    .hero-card b { font-size:22px; }
 
     .btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 17px;
-      font-weight: 700;
+      border:0;
+      border-radius:10px;
+      padding:12px 17px;
+      font-weight:700;
     }
 
     .primary {
-      background: var(--sage);
-      color: white;
+      background:var(--sage);
+      color:#fff;
     }
 
     .secondary {
-      background: var(--ink);
-      color: white;
+      background:var(--ink);
+      color:#fff;
     }
 
     .outline {
-      background: transparent;
-      border: 1px solid var(--line);
+      background:transparent;
+      border:1px solid var(--line);
     }
 
-    section {
-      padding: 45px 0;
-    }
+    section { padding:45px 0; }
 
     .head {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto 28px;
+      text-align:center;
+      max-width:680px;
+      margin:0 auto 28px;
     }
 
     .head h2 {
-      font-size: 31px;
-      margin: 8px 0;
+      font-size:31px;
+      margin:8px 0;
     }
 
     .head p {
-      color: var(--muted);
-      line-height: 1.6;
+      color:var(--muted);
+      line-height:1.6;
     }
 
     .cats {
-      display: flex;
-      gap: 10px;
-      overflow: auto;
-      padding-bottom: 8px;
+      display:flex;
+      gap:10px;
+      overflow:auto;
+      padding-bottom:8px;
     }
 
     .cat {
-      min-width: 120px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      padding: 14px;
-      text-align: center;
+      min-width:120px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:15px;
+      padding:14px;
+      text-align:center;
     }
 
-    .cat strong {
-      display: block;
-    }
+    .cat strong { display:block; }
 
     .tools {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
+      display:flex;
+      gap:10px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
     }
 
     .search {
-      flex: 1;
-      min-width: 220px;
-      padding: 13px 15px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: white;
+      flex:1;
+      min-width:220px;
+      padding:13px 15px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#fff;
     }
 
     .products {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 17px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:17px;
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 4px 18px rgba(40,35,25,.04);
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 4px 18px rgba(40,35,25,.04);
     }
 
     .img {
-      height: 170px;
-      background: #e9e4d7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 64px;
-      position: relative;
-      overflow: hidden;
+      height:170px;
+      background:#e9e4d7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:64px;
+      position:relative;
+      overflow:hidden;
     }
 
     .img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
 
     .stock {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: #e2eadf;
-      color: var(--sage2);
-      padding: 5px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      z-index: 2;
+      position:absolute;
+      top:10px;
+      left:10px;
+      background:#e2eadf;
+      color:var(--sage2);
+      padding:5px 8px;
+      border-radius:999px;
+      font-size:11px;
+      z-index:2;
     }
 
     .low {
-      background: #fff0cf;
-      color: #8a5a12;
+      background:#fff0cf;
+      color:#8a5a12;
     }
 
     .out {
-      background: #eee;
-      color: #777;
+      background:#eee;
+      color:#777;
     }
 
-    .body {
-      padding: 16px;
-    }
+    .body { padding:16px; }
 
     .tag {
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 1px;
+      font-size:10px;
+      color:var(--muted);
+      letter-spacing:1px;
     }
 
     .body h3 {
-      margin: 7px 0;
-      font-size: 16px;
+      margin:7px 0;
+      font-size:16px;
     }
 
     .body p {
-      color: var(--muted);
-      font-size: 13px;
-      min-height: 38px;
+      color:var(--muted);
+      font-size:13px;
+      min-height:38px;
     }
 
     .price {
-      font-size: 20px;
-      font-weight: 800;
-      margin: 10px 0;
+      font-size:20px;
+      font-weight:800;
+      margin:10px 0;
     }
 
     .row {
-      display: flex;
-      gap: 7px;
-      align-items: center;
+      display:flex;
+      gap:7px;
+      align-items:center;
     }
 
     .qty {
-      width: 65px;
-      padding: 9px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
+      width:65px;
+      padding:9px;
+      border:1px solid var(--line);
+      border-radius:8px;
     }
 
-    .full {
-      width: 100%;
-    }
+    .full { width:100%; }
 
     .feature-grid,
     .review-grid,
     .b2b-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
     }
 
-    .feature,
-    .review,
-    .b2b {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 17px;
-      padding: 20px;
+    .feature,.review,.b2b {
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:17px;
+      padding:20px;
     }
 
     .special {
-      background: var(--sage2);
-      color: #fff;
-      border-radius: 25px;
-      padding: 35px;
+      background:var(--sage2);
+      color:#fff;
+      border-radius:25px;
+      padding:35px;
     }
 
-    .special p {
-      color: #dce4d8;
-    }
+    .special p { color:#dce4d8; }
 
     .formgrid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
 
     .field label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 5px;
+      display:block;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:5px;
     }
 
     .field input,
     .field textarea,
     .field select {
-      width: 100%;
-      padding: 11px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: white;
+      width:100%;
+      padding:11px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+      margin-bottom:10px;
     }
 
-    .field textarea {
-      min-height: 85px;
-    }
+    .field textarea { min-height:85px; }
 
     .delivery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
     }
 
     .delivery {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 17px;
-      padding: 20px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:17px;
+      padding:20px;
     }
 
     .notice {
-      background: #fff4db;
-      border: 1px solid #e8c982;
-      border-radius: 12px;
-      padding: 12px;
-      color: #684b1b;
-      font-size: 13px;
+      background:#fff4db;
+      border:1px solid #e8c982;
+      border-radius:12px;
+      padding:12px;
+      color:#684b1b;
+      font-size:13px;
     }
 
     .policy {
-      max-width: 900px;
-      margin: auto;
+      max-width:900px;
+      margin:auto;
     }
 
-    .policy h3 {
-      margin-top: 25px;
-    }
+    .policy h3 { margin-top:25px; }
 
-    .policy p,
-    .policy li {
-      color: var(--muted);
-      line-height: 1.7;
+    .policy p,.policy li {
+      color:var(--muted);
+      line-height:1.7;
     }
 
     .footer {
-      background: var(--ink);
-      color: white;
-      padding: 40px 0;
+      background:var(--ink);
+      color:#fff;
+      padding:40px 0;
     }
 
     .footer-grid {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr 1fr;
-      gap: 25px;
+      display:grid;
+      grid-template-columns:1.3fr 1fr 1fr 1fr;
+      gap:25px;
     }
 
     .footer a {
-      color: #ddd;
-      text-decoration: none;
-      display: block;
-      margin: 7px 0;
+      color:#ddd;
+      text-decoration:none;
+      display:block;
+      margin:7px 0;
     }
 
     .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 18px;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.5);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:100;
+      padding:18px;
     }
 
-    .modal.show {
-      display: flex;
-    }
+    .modal.show { display:flex; }
 
     .box {
-      background: var(--card);
-      border-radius: 18px;
-      max-width: 650px;
-      width: 100%;
-      max-height: 90vh;
-      overflow: auto;
-      padding: 24px;
+      background:var(--card);
+      border-radius:18px;
+      max-width:650px;
+      width:100%;
+      max-height:90vh;
+      overflow:auto;
+      padding:24px;
     }
 
     .close {
-      float: right;
-      border: 0;
-      background: none;
-      font-size: 22px;
+      float:right;
+      border:0;
+      background:none;
+      font-size:22px;
     }
 
     .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(120px);
-      background: var(--ink);
-      color: white;
-      padding: 12px 18px;
-      border-radius: 999px;
-      z-index: 200;
-      transition: .25s;
+      position:fixed;
+      bottom:20px;
+      left:50%;
+      transform:translateX(-50%) translateY(120px);
+      background:var(--ink);
+      color:#fff;
+      padding:12px 18px;
+      border-radius:999px;
+      z-index:200;
+      transition:.25s;
     }
 
     .toast.show {
-      transform: translateX(-50%) translateY(0);
+      transform:translateX(-50%) translateY(0);
     }
 
-    .mobile-menu-btn {
-      display: none;
-    }
+    .mobile-menu-btn { display:none; }
+    .mobile-menu { display:none; }
 
-    .mobile-menu {
-      display: none;
-    }
-
-    @media (max-width: 900px) {
-      .links {
-        display: none !important;
-      }
+    @media(max-width:900px) {
+      .links { display:none!important; }
 
       .mobile-menu-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--line);
-        background: var(--card);
-        border-radius: 999px;
-        padding: 9px 13px;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
       }
 
-      .navin {
-        height: auto;
-        min-height: 70px;
-        flex-wrap: wrap;
-        padding: 8px 0;
-      }
-
-      .mobile-menu {
-        width: 100%;
-        padding: 8px 0 14px;
-        border-top: 1px solid var(--line);
-      }
-
-      .mobile-menu.open {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      .mobile-menu a {
-        padding: 12px;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        text-decoration: none;
-        color: var(--ink);
-        background: var(--card);
-      }
-
-      .hero {
-        padding: 36px 0 25px;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
+      .hero-grid { grid-template-columns:1fr; }
 
       .hero h1 {
-        font-size: 38px;
-        letter-spacing: -1px;
+        font-size:38px;
+        letter-spacing:-1px;
       }
 
       .products {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 12px;
+        grid-template-columns:repeat(2,minmax(0,1fr));
       }
 
       .feature-grid,
@@ -611,58 +527,54 @@
       .b2b-grid,
       .delivery-grid,
       .footer-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
       }
 
-      .tools {
-        gap: 8px;
+      .mobile-menu {
+        width:100%;
+        padding:8px 0 14px;
+        border-top:1px solid var(--line);
       }
 
-      .wrap {
-        padding: 0 14px;
+      .mobile-menu.open {
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:8px;
       }
 
-      button,
-      .btn,
-      .pill,
-      input,
-      select,
-      textarea {
-        min-height: 44px;
+      .mobile-menu a {
+        padding:12px;
+        border:1px solid var(--line);
+        border-radius:10px;
+        text-decoration:none;
+        color:var(--ink);
+        background:var(--card);
+      }
+
+      .wrap { padding:0 14px; }
+
+      button,input,select,textarea {
+        min-height:44px;
       }
     }
 
-    @media (max-width: 520px) {
-      .formgrid {
-        grid-template-columns: 1fr;
-      }
+    @media(max-width:520px) {
+      .formgrid { grid-template-columns:1fr; }
 
       .actions .pill:not(.lang-pill) {
-        display: none;
+        display:none;
       }
 
-      .hero h1 {
-        font-size: 32px;
-      }
+      .hero h1 { font-size:32px; }
 
-      .logo {
-        font-size: 21px;
-      }
-
-      .actions {
-        gap: 5px;
-      }
-
-      .actions .pill {
-        padding: 8px 10px;
-      }
+      .logo { font-size:21px; }
     }
   </style>
 </head>
 
 <body>
 
-<div class="top" id="topbar">
+<div class="top">
   Lebanon: choose from 3 available delivery dates · Pickup available · Syria: target delivery within 1 week
 </div>
 
@@ -682,13 +594,8 @@
       <a href="#policies">Returns</a>
     </div>
 
-    <button
-      id="mobileMenuBtn"
-      class="pill mobile-menu-btn"
-      onclick="toggleMobileMenu()"
-      aria-label="Open menu">
-      ☰
-    </button>
+    <button class="pill mobile-menu-btn"
+      onclick="toggleMobileMenu()">☰</button>
 
     <div class="actions">
 
@@ -700,18 +607,18 @@
         ⭐ <span>Exclusive Offers</span>
       </button>
 
-      <!-- PWA INSTALL BUTTON -->
+      <!-- PWA INSTALL -->
       <button
         class="pill"
         id="installBtn"
+        type="button"
         onclick="installApp()"
         style="display:none">
         📲 Install
       </button>
 
       <button class="cart" onclick="openCart()">
-        🛒 Cart
-        <span class="count" id="count">0</span>
+        🛒 Cart <span class="count" id="count">0</span>
       </button>
 
     </div>
@@ -736,18 +643,13 @@
   <div class="wrap hero-grid">
 
     <div>
-
-      <span class="eyebrow">
-        SMART LIVING · LEBANON
-      </span>
+      <span class="eyebrow">SMART LIVING · LEBANON</span>
 
       <h1>
         Useful products that make everyday life easier.
       </h1>
 
-      <div class="ar">
-        من الفوضى إلى الترتيب
-      </div>
+      <div class="ar">من الفوضى إلى الترتيب</div>
 
       <p>
         Curated home, kitchen, cleaning, smart-living and wellness products
@@ -755,19 +657,12 @@
       </p>
 
       <div class="row">
-        <a class="btn primary" href="#shop">
-          Shop now
-        </a>
-
-        <a class="btn outline" href="#special">
-          Request an item
-        </a>
+        <a class="btn primary" href="#shop">Shop now</a>
+        <a class="btn outline" href="#special">Request an item</a>
       </div>
-
     </div>
 
     <div class="hero-card">
-
       <b>⭐ Exclusive Members</b>
 
       <p>
@@ -775,9 +670,7 @@
         private offers, bundle discounts and selected member-only deals.
       </p>
 
-      <button
-        class="btn secondary full"
-        onclick="openRegister()">
+      <button class="btn secondary full" onclick="openRegister()">
         Register for exclusive offers
       </button>
 
@@ -789,57 +682,33 @@
         ✓ 3 delivery-date choices<br>
         ✓ Special orders from Shein/Alibaba
       </p>
-
     </div>
 
   </div>
 </section>
 
 <section id="categories">
-
   <div class="wrap">
-
     <div class="head">
-
-      <span class="eyebrow">
-        EXPLORE
-      </span>
-
-      <h2>
-        Shop by category
-      </h2>
-
-      <p>
-        Start with the problem you want to solve.
-      </p>
-
+      <span class="eyebrow">EXPLORE</span>
+      <h2>Shop by category</h2>
+      <p>Start with the problem you want to solve.</p>
     </div>
 
     <div class="cats" id="cats"></div>
-
   </div>
-
 </section>
 
 <section id="shop">
-
   <div class="wrap">
 
     <div class="head">
-
-      <span class="eyebrow">
-        CURATED COLLECTION
-      </span>
-
-      <h2>
-        Best useful products
-      </h2>
-
+      <span class="eyebrow">CURATED COLLECTION</span>
+      <h2>Best useful products</h2>
       <p>
         Stock is displayed live. Out-of-stock products are not presented
         as immediately available.
       </p>
-
     </div>
 
     <div class="tools">
@@ -850,46 +719,23 @@
         placeholder="Search products, e.g. kitchen, storage, cleaning..."
         oninput="render()">
 
-      <select
-        id="sort"
-        class="pill"
-        onchange="render()">
-
-        <option value="featured">
-          Featured
-        </option>
-
-        <option value="priceLow">
-          Price: low to high
-        </option>
-
-        <option value="priceHigh">
-          Price: high to low
-        </option>
-
+      <select id="sort" class="pill" onchange="render()">
+        <option value="featured">Featured</option>
+        <option value="priceLow">Price: low to high</option>
+        <option value="priceHigh">Price: high to low</option>
       </select>
 
-      <button
-        class="pill"
-        onclick="clearFilter()">
-        All
-      </button>
+      <button class="pill" onclick="clearFilter()">All</button>
 
     </div>
 
-    <div
-      class="products"
-      id="products">
-    </div>
+    <div class="products" id="products"></div>
 
   </div>
-
 </section>
 
 <section>
-
   <div class="wrap">
-
     <div class="feature-grid">
 
       <div class="feature">
@@ -917,13 +763,10 @@
       </div>
 
     </div>
-
   </div>
-
 </section>
 
 <section id="special">
-
   <div class="wrap">
 
     <div class="special">
@@ -931,14 +774,9 @@
       <div class="formgrid">
 
         <div>
+          <span class="eyebrow">SPECIAL ORDERS</span>
 
-          <span class="eyebrow">
-            SPECIAL ORDERS
-          </span>
-
-          <h2>
-            Can't find it? We'll source it.
-          </h2>
+          <h2>Can't find it? We'll source it.</h2>
 
           <p>
             Send a product link, photo or description.
@@ -950,17 +788,14 @@
             <b>Special-order engine:</b>
             request → quote → approve → order → track → deliver.
           </p>
-
         </div>
 
         <div>
 
           <div class="field">
             <label>Product / link</label>
-            <textarea
-              id="reqItem"
-              placeholder="Paste Shein/Alibaba link or describe the item">
-            </textarea>
+            <textarea id="reqItem"
+              placeholder="Paste Shein/Alibaba link or describe the item"></textarea>
           </div>
 
           <div class="field">
@@ -981,50 +816,33 @@
             </select>
           </div>
 
-          <button
-            class="btn primary full"
-            onclick="specialOrder()">
+          <button class="btn primary full" onclick="specialOrder()">
             Send request on WhatsApp
           </button>
 
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 <section id="wholesale">
-
   <div class="wrap">
 
     <div class="head">
-
-      <span class="eyebrow">
-        B2B / WHOLESALE
-      </span>
-
-      <h2>
-        Build your business with Tarteeb
-      </h2>
-
+      <span class="eyebrow">B2B / WHOLESALE</span>
+      <h2>Build your business with Tarteeb</h2>
       <p>
         Wholesale pricing for retailers, gift shops, supermarkets,
         hotels, restaurants, offices, salons, gyms, resellers and distributors.
       </p>
-
     </div>
 
     <div class="b2b-grid">
 
       <div class="b2b">
         <b>📦 Volume pricing</b>
-        <p>
-          Tiered pricing by quantity, carton and account type.
-        </p>
+        <p>Tiered pricing by quantity, carton and account type.</p>
       </div>
 
       <div class="b2b">
@@ -1045,72 +863,42 @@
     </div>
 
     <div style="text-align:center;margin-top:22px">
-
-      <button
-        class="btn secondary"
-        onclick="openWholesale()">
+      <button class="btn secondary" onclick="openWholesale()">
         Request wholesale account
       </button>
-
     </div>
 
   </div>
-
 </section>
 
 <section id="reviews">
-
   <div class="wrap">
 
     <div class="head">
-
-      <span class="eyebrow">
-        CUSTOMER REVIEWS
-      </span>
-
-      <h2>
-        What customers say
-      </h2>
-
+      <span class="eyebrow">CUSTOMER REVIEWS</span>
+      <h2>What customers say</h2>
       <p>
         Reviews become part of our product-selection system—not just marketing.
       </p>
-
     </div>
 
-    <div
-      class="review-grid"
-      id="reviewGrid">
-    </div>
+    <div class="review-grid" id="reviewGrid"></div>
 
     <div style="text-align:center;margin-top:20px">
-
-      <button
-        class="btn outline"
-        onclick="openReview()">
+      <button class="btn outline" onclick="openReview()">
         Leave a review
       </button>
-
     </div>
 
   </div>
-
 </section>
 
 <section id="delivery">
-
   <div class="wrap">
 
     <div class="head">
-
-      <span class="eyebrow">
-        FULFILLMENT
-      </span>
-
-      <h2>
-        Choose how you receive your order
-      </h2>
-
+      <span class="eyebrow">FULFILLMENT</span>
+      <h2>Choose how you receive your order</h2>
     </div>
 
     <div class="delivery-grid">
@@ -1139,29 +927,18 @@
       </div>
 
     </div>
-
   </div>
-
 </section>
 
 <section id="policies">
-
   <div class="wrap policy">
 
     <div class="head">
-
-      <span class="eyebrow">
-        TRUST
-      </span>
-
-      <h2>
-        Return & customer policy
-      </h2>
-
+      <span class="eyebrow">TRUST</span>
+      <h2>Return & customer policy</h2>
     </div>
 
     <h3>Returns</h3>
-
     <p>
       For stocked products, customers should contact us within the published
       return window after delivery if the item is damaged, defective or
@@ -1171,7 +948,6 @@
     </p>
 
     <h3>Special orders</h3>
-
     <p>
       Because special-order products are purchased specifically for the customer,
       cancellation/return eligibility may differ. We disclose the terms before
@@ -1179,7 +955,6 @@
     </p>
 
     <h3>Damaged on arrival</h3>
-
     <p>
       Customers should photograph the package and product and contact support
       promptly. We will review the case and coordinate replacement/refund
@@ -1187,7 +962,6 @@
     </p>
 
     <h3>Pickup</h3>
-
     <p>
       Pickup orders are considered fulfilled when collected after customer
       confirmation. Uncollected orders may be subject to a storage/return
@@ -1195,7 +969,6 @@
     </p>
 
     <h3>Privacy</h3>
-
     <p>
       Customer contact information should only be used for order fulfillment,
       support and opted-in marketing. The production version should include
@@ -1203,18 +976,13 @@
     </p>
 
   </div>
-
 </section>
 
 </main>
 
-<div
-  class="wrap"
+<div class="wrap"
   style="margin:0 auto 20px;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:#fff8e8;font-size:13px">
-
-  <b>Launch note:</b>
-  Storefront connected to live database.
-
+  <b>Launch note:</b> Storefront connected to live database.
 </div>
 
 <footer id="contact" class="footer">
@@ -1223,9 +991,7 @@
 
     <div>
       <h3>Tarteeb ترتيب</h3>
-      <p>
-        Useful products that make everyday life easier.
-      </p>
+      <p>Useful products that make everyday life easier.</p>
     </div>
 
     <div>
@@ -1241,9 +1007,7 @@
       <a href="#reviews">Reviews</a>
       <a href="#policies">Returns</a>
       <a href="#delivery">Delivery & Pickup</a>
-      <a
-        href="#register"
-        onclick="openRegister();return false">
+      <a href="#register" onclick="openRegister();return false">
         Exclusive Offers
       </a>
     </div>
@@ -1259,1736 +1023,1421 @@
         ✉ adnanasbashi@gmail.com
       </a>
 
-      <a
-        href="https://wa.me/9613080365"
-        target="_blank">
+      <a href="https://wa.me/9613080365" target="_blank">
         💬 WhatsApp
       </a>
-
     </div>
 
   </div>
 
-  <div
-    class="wrap"
+  <div class="wrap"
     style="margin-top:25px;border-top:1px solid #444;padding-top:15px;font-size:12px;color:#bbb">
-
     © 2026 Tarteeb. All rights reserved.
-
   </div>
 
 </footer>
 
 <div class="modal" id="modal">
-
   <div class="box">
-
-    <button
-      class="close"
-      onclick="closeModal()">
-      ×
-    </button>
-
+    <button class="close" onclick="closeModal()">×</button>
     <div id="modalContent"></div>
-
   </div>
-
 </div>
 
-<div
-  class="toast"
-  id="toast">
-</div>
-
+<div class="toast" id="toast"></div>
 
 <script>
 
-  /* ============================================================
-     SUPABASE
-     ============================================================ */
+/* ============================================================
+   SUPABASE
+   ============================================================ */
 
-  const SUPABASE_URL =
-    "https://ifjealmkewsfhbqfbuja.supabase.co";
+const SUPABASE_URL =
+  "https://ifjealmkewsfhbqfbuja.supabase.co";
 
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_rr0YmNcZr73bQkKAW-DNAw_wXWVw88E";
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_rr0YmNcZr73bQkKAW-DNAw_wXWVw88E";
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 
-  const WA = "9613080365";
-
-
-  /* ============================================================
-     DATA
-     ============================================================ */
-
-  let cats = [
-    ["all", "All", "✨"],
-    ["home", "Home", "🏠"],
-    ["kitchen", "Kitchen", "🍳"],
-    ["clean", "Cleaning", "🧽"],
-    ["smart", "Smart Home", "💡"],
-    ["wellness", "Wellness", "💆"],
-    ["car", "Car & Travel", "🚗"]
-  ];
-
-  let products = [];
-  let cart = {};
-  let activeCat = "all";
+const WA = "9613080365";
 
 
-  /* ============================================================
-     PWA INSTALL
-     ============================================================ */
+/* ============================================================
+   DATA
+   ============================================================ */
+
+let cats = [
+  ["all","All","✨"],
+  ["home","Home","🏠"],
+  ["kitchen","Kitchen","🍳"],
+  ["clean","Cleaning","🧽"],
+  ["smart","Smart Home","💡"],
+  ["wellness","Wellness","💆"],
+  ["car","Car & Travel","🚗"]
+];
+
+let products = [];
+let cart = {};
+let activeCat = "all";
+
+
+/* ============================================================
+   PWA INSTALL
+   ============================================================ */
+
+/*
+  IMPORTANT:
+  The install event is stored on window.
+
+  We DO NOT call preventDefault() without saving
+  the event first.
+
+  Chrome will fire beforeinstallprompt only when
+  the website is eligible for installation.
+*/
+
+window.tarteebDeferredPrompt = null;
+
+window.addEventListener("beforeinstallprompt", function(event) {
+
+  console.log("Tarteeb PWA: beforeinstallprompt fired");
 
   /*
-     IMPORTANT:
-     We deliberately store the event on window.
-
-     This makes it possible to inspect it from Chrome Console:
-     
-     window.tarteebDeferredPrompt
-
-     Do NOT use:
-     
-     let deferredPrompt;
-
-     because that makes console testing confusing.
+    Prevent Chrome's automatic mini-infobar.
+    We will trigger the installation ourselves.
   */
+  event.preventDefault();
+
+  /*
+    Save the REAL event.
+  */
+  window.tarteebDeferredPrompt = event;
+
+  /*
+    Show our Install button.
+  */
+  const installBtn =
+    document.getElementById("installBtn");
+
+  if (installBtn) {
+    installBtn.style.display = "inline-block";
+  }
+
+  console.log(
+    "Tarteeb PWA: Install button is ready"
+  );
+
+});
+
+
+/*
+  INSTALL BUTTON
+*/
+
+async function installApp() {
+
+  const promptEvent =
+    window.tarteebDeferredPrompt;
+
+  if (!promptEvent) {
+
+    console.log(
+      "Tarteeb PWA: No install prompt available."
+    );
+
+    toast(
+      "Install is not currently available. Please use Chrome and make sure the site is eligible as a PWA."
+    );
+
+    return;
+  }
+
+  console.log(
+    "Tarteeb PWA: Opening installation dialog..."
+  );
+
+  /*
+    IMPORTANT:
+    prompt() is called directly from the
+    customer's button click.
+  */
+  promptEvent.prompt();
+
+  const result =
+    await promptEvent.userChoice;
+
+  console.log(
+    "Tarteeb PWA install result:",
+    result.outcome
+  );
+
+  /*
+    The event is single-use.
+  */
+  window.tarteebDeferredPrompt = null;
+
+  const installBtn =
+    document.getElementById("installBtn");
+
+  if (installBtn) {
+    installBtn.style.display = "none";
+  }
+
+  if (result.outcome === "accepted") {
+    toast("Tarteeb installed successfully!");
+  } else {
+    toast("Installation cancelled.");
+  }
+
+}
+
+
+/*
+  APP INSTALLED
+*/
+
+window.addEventListener("appinstalled", function() {
+
+  console.log("Tarteeb PWA: App installed");
 
   window.tarteebDeferredPrompt = null;
 
+  const installBtn =
+    document.getElementById("installBtn");
 
-  window.addEventListener(
-    "beforeinstallprompt",
-    function (event) {
-
-      console.log(
-        "Tarteeb PWA: beforeinstallprompt fired"
-      );
-
-      /*
-        Stop Chrome from trying to show its automatic
-        installation UI.
-
-        We will show the installation dialog when
-        the customer clicks our Install button.
-      */
-      event.preventDefault();
-
-
-      /*
-        Save the event.
-      */
-      window.tarteebDeferredPrompt = event;
-
-
-      /*
-        Show our Install button.
-      */
-      const installBtn =
-        document.getElementById("installBtn");
-
-      if (installBtn) {
-        installBtn.style.display = "inline-block";
-      }
-
-
-      console.log(
-        "Tarteeb PWA: Install button is ready"
-      );
-
-    }
-  );
-
-
-  async function installApp() {
-
-    const promptEvent =
-      window.tarteebDeferredPrompt;
-
-
-    /*
-      If Chrome has not supplied an install event,
-      the button cannot open the install dialog.
-    */
-    if (!promptEvent) {
-
-      toast(
-        "Install option is not currently available."
-      );
-
-      console.log(
-        "Tarteeb PWA: No install prompt available."
-      );
-
-      return;
-    }
-
-
-    console.log(
-      "Tarteeb PWA: Opening installation dialog..."
-    );
-
-
-    /*
-      THIS IS THE IMPORTANT PART.
-
-      This is what Chrome expects after
-      beforeinstallprompt was prevented.
-    */
-    promptEvent.prompt();
-
-
-    /*
-      Wait for customer's answer.
-    */
-    const result =
-      await promptEvent.userChoice;
-
-
-    console.log(
-      "Tarteeb PWA install result:",
-      result.outcome
-    );
-
-
-    if (result.outcome === "accepted") {
-
-      toast(
-        "Tarteeb installed successfully!"
-      );
-
-    } else {
-
-      toast(
-        "Installation cancelled."
-      );
-
-    }
-
-
-    /*
-      The event can only be used once.
-    */
-    window.tarteebDeferredPrompt = null;
-
-
-    const installBtn =
-      document.getElementById("installBtn");
-
-    if (installBtn) {
-      installBtn.style.display = "none";
-    }
-
+  if (installBtn) {
+    installBtn.style.display = "none";
   }
 
+  toast("Tarteeb has been installed!");
 
-  /*
-     When Chrome confirms installation.
-  */
-  window.addEventListener(
-    "appinstalled",
-    function () {
-
-      console.log(
-        "Tarteeb PWA: App installed"
-      );
-
-      window.tarteebDeferredPrompt = null;
-
-      const installBtn =
-        document.getElementById("installBtn");
-
-      if (installBtn) {
-        installBtn.style.display = "none";
-      }
-
-      toast(
-        "Tarteeb has been installed!"
-      );
-
-    }
-  );
+});
 
 
-  /* ============================================================
-     SERVICE WORKER
-     ============================================================ */
+/* ============================================================
+   SERVICE WORKER
+   ============================================================ */
 
-  /*
-     Register service-worker.js.
+if ("serviceWorker" in navigator) {
 
-     Make sure service-worker.js exists in the
-     ROOT of your Netlify site.
-  */
+  window.addEventListener("load", function() {
 
-  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then(function(registration) {
 
-    window.addEventListener(
-      "load",
-      function () {
+        console.log(
+          "Tarteeb PWA: Service Worker registered:",
+          registration.scope
+        );
 
-        navigator.serviceWorker
-          .register("/service-worker.js")
-          .then(function (registration) {
+      })
+      .catch(function(error) {
 
-            console.log(
-              "Tarteeb PWA: Service Worker registered:",
-              registration.scope
-            );
+        console.error(
+          "Tarteeb PWA: Service Worker registration failed:",
+          error
+        );
 
-          })
-          .catch(function (error) {
+      });
 
-            console.error(
-              "Tarteeb PWA: Service Worker registration failed:",
-              error
-            );
+  });
 
-          });
+}
 
-      }
+
+/* ============================================================
+   LOAD CATEGORIES
+   ============================================================ */
+
+async function loadCategoriesFromSupabase() {
+
+  const { data, error } =
+    await supabaseClient
+      .from("categories")
+      .select("*");
+
+  if (error) {
+
+    console.error(
+      "Error fetching categories:",
+      error
     );
-
-  }
-
-
-  /* ============================================================
-     LOAD CATEGORIES
-     ============================================================ */
-
-  async function loadCategoriesFromSupabase() {
-
-    const { data, error } =
-      await supabaseClient
-        .from("categories")
-        .select("*");
-
-
-    if (error) {
-
-      console.error(
-        "Error fetching categories:",
-        error
-      );
-
-      renderCats();
-
-      return;
-    }
-
-
-    if (data && data.length > 0) {
-
-      const dynamicCats =
-        data.map(function (c) {
-
-          return [
-            c.id,
-            c.name_en || c.name_ar,
-            "✨"
-          ];
-
-        });
-
-
-      cats = [
-        ["all", "All", "✨"],
-        ...dynamicCats
-      ];
-
-    }
-
 
     renderCats();
+    return;
+  }
+
+  if (data && data.length > 0) {
+
+    const dynamicCats =
+      data.map(function(c) {
+
+        return [
+          c.id,
+          c.name_en || c.name_ar,
+          "✨"
+        ];
+
+      });
+
+    cats = [
+      ["all","All","✨"],
+      ...dynamicCats
+    ];
 
   }
 
+  renderCats();
 
-  /* ============================================================
-     LOAD PRODUCTS
-     ============================================================ */
-
-  async function loadProductsFromSupabase() {
-
-    const { data, error } =
-      await supabaseClient
-        .from("products")
-        .select("*")
-        .eq("active", true);
+}
 
 
-    if (error) {
+/* ============================================================
+   LOAD PRODUCTS
+   ============================================================ */
 
-      console.error(
-        "Error fetching products from Supabase:",
-        error
-      );
+async function loadProductsFromSupabase() {
 
-      render();
+  const { data, error } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .eq("active", true);
 
-      return;
-    }
+  if (error) {
 
-
-    if (data) {
-
-      products =
-        data.map(function (item) {
-
-          return {
-
-            id: item.id,
-
-            name:
-              item.name_en ||
-              item.name_ar ||
-              "Unnamed product",
-
-            price:
-              Number(item.retail_price || 0),
-
-            stock:
-              Number(item.stock_quantity || 0),
-
-            desc:
-              item.description_en ||
-              item.description_ar ||
-              "",
-
-            image:
-              item.image_url || "",
-
-            emoji:
-              "📦",
-
-            cat:
-              item.category_id ||
-              "home"
-
-          };
-
-        });
-
-
-      render();
-
-    }
-
-  }
-
-
-  /* ============================================================
-     INITIAL LOAD
-     ============================================================ */
-
-  loadCategoriesFromSupabase();
-  loadProductsFromSupabase();
-
-
-  /* ============================================================
-     TOAST
-     ============================================================ */
-
-  function toast(message) {
-
-    const t =
-      document.getElementById("toast");
-
-    if (!t) return;
-
-    t.textContent = message;
-
-    t.classList.add("show");
-
-    setTimeout(
-      function () {
-        t.classList.remove("show");
-      },
-      2200
+    console.error(
+      "Error fetching products from Supabase:",
+      error
     );
 
-  }
-
-
-  /* ============================================================
-     CATEGORIES
-     ============================================================ */
-
-  function renderCats() {
-
-    const container =
-      document.getElementById("cats");
-
-    if (!container) return;
-
-
-    container.innerHTML =
-      cats
-        .map(function (c) {
-
-          return `
-            <button
-              class="cat"
-              onclick="setCat('${escapeHtml(String(c[0]))}')">
-
-              ${escapeHtml(String(c[2]))}
-
-              <strong>
-                ${escapeHtml(String(c[1]))}
-              </strong>
-
-            </button>
-          `;
-
-        })
-        .join("");
-
-  }
-
-
-  function setCat(c) {
-
-    activeCat = c;
-
     render();
-
-    const shop =
-      document.getElementById("shop");
-
-    if (shop) {
-
-      shop.scrollIntoView({
-        behavior: "smooth"
-      });
-
-    }
-
+    return;
   }
 
+  if (data) {
 
-  function clearFilter() {
+    products =
+      data.map(function(item) {
 
-    activeCat = "all";
+        return {
 
-    const search =
-      document.getElementById("search");
+          id:item.id,
 
-    if (search) {
-      search.value = "";
-    }
+          name:
+            item.name_en ||
+            item.name_ar ||
+            "Unnamed product",
+
+          price:
+            Number(item.retail_price || 0),
+
+          stock:
+            Number(item.stock_quantity || 0),
+
+          desc:
+            item.description_en ||
+            item.description_ar ||
+            "",
+
+          image:
+            item.image_url || "",
+
+          emoji:"📦",
+
+          cat:
+            item.category_id || "home"
+
+        };
+
+      });
 
     render();
 
   }
 
+}
 
-  /* ============================================================
-     PRODUCT RENDERING
-     ============================================================ */
 
-  function render() {
+/* ============================================================
+   INITIAL LOAD
+   ============================================================ */
 
-    const search =
-      document.getElementById("search");
+loadCategoriesFromSupabase();
+loadProductsFromSupabase();
 
-    const sort =
-      document.getElementById("sort");
 
-    const container =
-      document.getElementById("products");
+/* ============================================================
+   TOAST
+   ============================================================ */
 
+function toast(message) {
 
-    if (!search || !sort || !container) {
-      return;
-    }
+  const t =
+    document.getElementById("toast");
 
+  if (!t) return;
 
-    const q =
-      search.value
-        .toLowerCase()
-        .trim();
+  t.textContent = message;
 
+  t.classList.add("show");
 
-    const s =
-      sort.value;
+  setTimeout(function() {
+    t.classList.remove("show");
+  },2200);
 
+}
 
-    let filtered =
-      products.filter(function (p) {
 
-        return (
+/* ============================================================
+   CATEGORIES
+   ============================================================ */
 
-          (
-            activeCat === "all" ||
-            String(p.cat) === String(activeCat)
-          )
+function renderCats() {
 
-          &&
+  const container =
+    document.getElementById("cats");
 
-          (
-            String(p.name)
-              .toLowerCase()
-              .includes(q)
+  if (!container) return;
 
-            ||
+  container.innerHTML =
+    cats.map(function(c) {
 
-            String(p.desc)
-              .toLowerCase()
-              .includes(q)
-          )
+      return `
+        <button
+          class="cat"
+          onclick="setCat('${escapeAttribute(String(c[0]))}')">
 
-        );
+          ${escapeHtml(String(c[2]))}
 
-      });
+          <strong>
+            ${escapeHtml(String(c[1]))}
+          </strong>
 
+        </button>
+      `;
 
-    if (s === "priceLow") {
+    }).join("");
 
-      filtered.sort(
-        function (x, y) {
-          return x.price - y.price;
-        }
-      );
+}
 
-    }
 
+function setCat(c) {
 
-    if (s === "priceHigh") {
+  activeCat = c;
 
-      filtered.sort(
-        function (x, y) {
-          return y.price - x.price;
-        }
-      );
+  render();
 
-    }
+  const shop =
+    document.getElementById("shop");
 
-
-    container.innerHTML =
-      filtered
-        .map(function (p) {
-
-          let tag;
-
-
-          if (p.stock === 0) {
-
-            tag =
-              '<span class="stock out">Out of stock</span>';
-
-          } else if (p.stock <= 5) {
-
-            tag =
-              `<span class="stock low">${p.stock} left</span>`;
-
-          } else {
-
-            tag =
-              '<span class="stock">In stock</span>';
-
-          }
-
-
-          const mediaDisplay =
-            p.image
-
-              ?
-
-              `<img
-                src="${escapeAttribute(p.image)}"
-                alt="${escapeAttribute(p.name)}"
-                loading="lazy">`
-
-              :
-
-              p.emoji;
-
-
-          const disabled =
-            p.stock === 0
-              ? "disabled"
-              : "";
-
-
-          return `
-
-            <article class="card">
-
-              <div class="img">
-
-                ${mediaDisplay}
-
-                ${tag}
-
-              </div>
-
-              <div class="body">
-
-                <div class="tag">
-                  ${escapeHtml(String(p.cat).toUpperCase())}
-                </div>
-
-                <h3>
-                  ${escapeHtml(p.name)}
-                </h3>
-
-                <p>
-                  ${escapeHtml(p.desc)}
-                </p>
-
-                <div class="price">
-                  $${Number(p.price).toFixed(2)}
-                </div>
-
-                <div class="row">
-
-                  <input
-                    class="qty"
-                    id="q-${escapeAttribute(String(p.id))}"
-                    type="number"
-                    min="1"
-                    value="1"
-                    ${disabled}>
-
-                  <button
-                    class="btn primary full"
-                    ${disabled}
-                    onclick="add('${escapeAttribute(String(p.id))}')">
-
-                    ${p.stock === 0
-                      ? "Request instead"
-                      : "Add to cart"}
-
-                  </button>
-
-                </div>
-
-              </div>
-
-            </article>
-
-          `;
-
-        })
-        .join("")
-
-      ||
-
-      "<p>No matching products found.</p>";
-
+  if (shop) {
+    shop.scrollIntoView({
+      behavior:"smooth"
+    });
   }
 
-
-  /* ============================================================
-     CART
-     ============================================================ */
-
-  function add(id) {
-
-    const p =
-      products.find(function (x) {
-        return String(x.id) === String(id);
-      });
+}
 
 
-    if (!p || !p.stock) {
+function clearFilter() {
 
-      openSpecial();
+  activeCat = "all";
 
-      return;
-    }
+  const search =
+    document.getElementById("search");
 
-
-    const qtyInput =
-      document.getElementById(
-        "q-" + id
-      );
-
-
-    let q =
-      Math.max(
-        1,
-        parseInt(
-          qtyInput
-            ? qtyInput.value
-            : 1
-        ) || 1
-      );
-
-
-    cart[id] =
-      Math.min(
-        (cart[id] || 0) + q,
-        p.stock
-      );
-
-
-    updateCartCount();
-
-    toast("Added to cart");
-
+  if (search) {
+    search.value = "";
   }
 
+  render();
 
-  function updateCartCount() {
-
-    const count =
-      Object.values(cart)
-        .reduce(
-          function (a, b) {
-            return a + b;
-          },
-          0
-        );
+}
 
 
-    const countElement =
-      document.getElementById("count");
+/* ============================================================
+   PRODUCTS
+   ============================================================ */
 
+function render() {
 
-    if (countElement) {
-      countElement.textContent = count;
-    }
+  const search =
+    document.getElementById("search");
 
+  const sort =
+    document.getElementById("sort");
+
+  const container =
+    document.getElementById("products");
+
+  if (!search || !sort || !container) {
+    return;
   }
 
+  const q =
+    search.value.toLowerCase().trim();
 
-  function openCart() {
+  const s =
+    sort.value;
 
-    let lines =
-      Object.entries(cart)
-        .map(function ([id, q]) {
+  let filtered =
+    products.filter(function(p) {
 
-          const p =
-            products.find(function (x) {
-              return String(x.id) === String(id);
-            });
+      return (
 
+        (
+          activeCat === "all" ||
+          String(p.cat) === String(activeCat)
+        )
 
-          if (!p) return "";
+        &&
 
+        (
+          String(p.name)
+            .toLowerCase()
+            .includes(q)
 
-          return `
+          ||
+
+          String(p.desc)
+            .toLowerCase()
+            .includes(q)
+        )
+
+      );
+
+    });
+
+  if (s === "priceLow") {
+    filtered.sort(function(x,y) {
+      return x.price - y.price;
+    });
+  }
+
+  if (s === "priceHigh") {
+    filtered.sort(function(x,y) {
+      return y.price - x.price;
+    });
+  }
+
+  container.innerHTML =
+    filtered.map(function(p) {
+
+      let tag;
+
+      if (p.stock === 0) {
+
+        tag =
+          '<span class="stock out">Out of stock</span>';
+
+      } else if (p.stock <= 5) {
+
+        tag =
+          `<span class="stock low">${p.stock} left</span>`;
+
+      } else {
+
+        tag =
+          '<span class="stock">In stock</span>';
+
+      }
+
+      const mediaDisplay =
+        p.image
+          ?
+          `<img
+            src="${escapeAttribute(p.image)}"
+            alt="${escapeAttribute(p.name)}"
+            loading="lazy">`
+          :
+          p.emoji;
+
+      const disabled =
+        p.stock === 0 ? "disabled" : "";
+
+      return `
+
+        <article class="card">
+
+          <div class="img">
+
+            ${mediaDisplay}
+
+            ${tag}
+
+          </div>
+
+          <div class="body">
+
+            <div class="tag">
+              ${escapeHtml(String(p.cat).toUpperCase())}
+            </div>
+
+            <h3>
+              ${escapeHtml(p.name)}
+            </h3>
+
             <p>
-              <b>${escapeHtml(p.name)}</b>
-              × ${q}
-              — $${(p.price * q).toFixed(2)}
+              ${escapeHtml(p.desc)}
             </p>
-          `;
 
-        })
-        .join("");
+            <div class="price">
+              $${Number(p.price).toFixed(2)}
+            </div>
+
+            <div class="row">
+
+              <input
+                class="qty"
+                id="q-${escapeAttribute(String(p.id))}"
+                type="number"
+                min="1"
+                value="1"
+                ${disabled}>
+
+              <button
+                class="btn primary full"
+                ${disabled}
+                onclick="add('${escapeAttribute(String(p.id))}')">
+
+                ${p.stock === 0
+                  ? "Request instead"
+                  : "Add to cart"}
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("")
+
+    ||
+
+    "<p>No matching products found.</p>";
+
+}
 
 
-    if (!lines) {
-      lines = "<p>Your cart is empty.</p>";
-    }
+/* ============================================================
+   CART
+   ============================================================ */
+
+function add(id) {
+
+  const p =
+    products.find(function(x) {
+      return String(x.id) === String(id);
+    });
+
+  if (!p || !p.stock) {
+    openSpecial();
+    return;
+  }
+
+  const qtyInput =
+    document.getElementById("q-" + id);
+
+  let q =
+    Math.max(
+      1,
+      parseInt(
+        qtyInput ? qtyInput.value : 1
+      ) || 1
+    );
+
+  cart[id] =
+    Math.min(
+      (cart[id] || 0) + q,
+      p.stock
+    );
+
+  updateCartCount();
+
+  toast("Added to cart");
+
+}
 
 
-    document.getElementById(
-      "modalContent"
-    ).innerHTML = `
+function updateCartCount() {
 
-      <h2>Cart</h2>
+  const count =
+    Object.values(cart)
+      .reduce(function(a,b) {
+        return a + b;
+      },0);
 
-      ${lines}
+  const countElement =
+    document.getElementById("count");
 
-      <hr>
+  if (countElement) {
+    countElement.textContent = count;
+  }
 
-      <h3>Choose fulfillment</h3>
+}
 
-      <select
-        id="fulfill"
-        class="pill full"
-        onchange="toggleDelivery()">
 
-        <option value="delivery">
-          Delivery
-        </option>
+/* ============================================================
+   CART MODAL
+   ============================================================ */
 
-        <option value="pickup">
-          Pickup — avoid delivery fee
-        </option>
+function openCart() {
+
+  let lines =
+    Object.entries(cart)
+      .map(function([id,q]) {
+
+        const p =
+          products.find(function(x) {
+            return String(x.id) === String(id);
+          });
+
+        if (!p) return "";
+
+        return `
+          <p>
+            <b>${escapeHtml(p.name)}</b>
+            × ${q}
+            — $${(p.price*q).toFixed(2)}
+          </p>
+        `;
+
+      })
+      .join("");
+
+  if (!lines) {
+    lines = "<p>Your cart is empty.</p>";
+  }
+
+  document.getElementById("modalContent").innerHTML = `
+
+    <h2>Cart</h2>
+
+    ${lines}
+
+    <hr>
+
+    <h3>Choose fulfillment</h3>
+
+    <select
+      id="fulfill"
+      class="pill full"
+      onchange="toggleDelivery()">
+
+      <option value="delivery">
+        Delivery
+      </option>
+
+      <option value="pickup">
+        Pickup — avoid delivery fee
+      </option>
+
+    </select>
+
+    <div
+      id="deliveryChoice"
+      style="margin-top:12px">
+
+      <label>
+        Lebanon delivery date
+      </label>
+
+      <select class="pill full">
+
+        <option>Next available date</option>
+        <option>Following available date</option>
+        <option>Third available date</option>
 
       </select>
 
-      <div
-        id="deliveryChoice"
-        style="margin-top:12px">
+    </div>
 
-        <label>
-          Lebanon delivery date
-        </label>
+    <button
+      class="btn primary full"
+      style="margin-top:14px"
+      onclick="checkout()">
 
-        <select class="pill full">
+      Continue on WhatsApp
 
-          <option>
-            Next available date
-          </option>
+    </button>
 
-          <option>
-            Following available date
-          </option>
+  `;
 
-          <option>
-            Third available date
-          </option>
+  openModal();
 
-        </select>
+}
 
-      </div>
 
-      <button
-        class="btn primary full"
-        style="margin-top:14px"
-        onclick="checkout()">
+function toggleDelivery() {
 
-        Continue on WhatsApp
+  const fulfill =
+    document.getElementById("fulfill");
 
-      </button>
+  const deliveryChoice =
+    document.getElementById("deliveryChoice");
 
-    `;
+  if (!fulfill || !deliveryChoice) return;
 
+  deliveryChoice.style.display =
+    fulfill.value === "pickup"
+      ? "none"
+      : "block";
 
-    openModal();
+}
 
-  }
 
+/* ============================================================
+   CHECKOUT
+   ============================================================ */
 
-  function toggleDelivery() {
+async function checkout() {
 
-    const fulfill =
-      document.getElementById("fulfill");
+  const fulfillElement =
+    document.getElementById("fulfill");
 
-    const deliveryChoice =
-      document.getElementById("deliveryChoice");
+  const fulfill =
+    fulfillElement
+      ? fulfillElement.value
+      : "delivery";
 
+  let totalAmount = 0;
+  let items = [];
 
-    if (!fulfill || !deliveryChoice) {
-      return;
-    }
+  Object.entries(cart)
+    .forEach(function([id,q]) {
 
-
-    deliveryChoice.style.display =
-      fulfill.value === "pickup"
-        ? "none"
-        : "block";
-
-  }
-
-
-  /* ============================================================
-     CHECKOUT
-     ============================================================ */
-
-  async function checkout() {
-
-    const fulfillElement =
-      document.getElementById("fulfill");
-
-
-    const fulfill =
-      fulfillElement
-        ? fulfillElement.value
-        : "delivery";
-
-
-    let totalAmount = 0;
-
-    let items = [];
-
-
-    Object.entries(cart)
-      .forEach(function ([id, q]) {
-
-        const p =
-          products.find(function (x) {
-            return String(x.id) === String(id);
-          });
-
-
-        if (p) {
-
-          totalAmount +=
-            p.price * q;
-
-
-          items.push({
-            product_id: p.id,
-            quantity: q,
-            unit_price: p.price
-          });
-
-        }
-
-      });
-
-
-    if (items.length === 0) {
-
-      toast("Your cart is empty");
-
-      return;
-
-    }
-
-
-    const orderNumber =
-      "ORD-" +
-      Math.floor(
-        100000 +
-        Math.random() * 900000
-      );
-
-
-    const {
-      data: orderData,
-      error: orderError
-    } =
-      await supabaseClient
-        .from("orders")
-        .insert([{
-
-          order_number:
-            orderNumber,
-
-          subtotal:
-            totalAmount,
-
-          total:
-            totalAmount,
-
-          status:
-            "pending"
-
-        }])
-        .select();
-
-
-    if (orderError) {
-
-      console.error(
-        "Order save error:",
-        orderError
-      );
-
-    } else if (
-      orderData &&
-      orderData[0]
-    ) {
-
-      const orderId =
-        orderData[0].id;
-
-
-      const orderItems =
-        items.map(function (item) {
-
-          return {
-            ...item,
-            order_id: orderId
-          };
-
+      const p =
+        products.find(function(x) {
+          return String(x.id) === String(id);
         });
 
+      if (p) {
 
-      const {
-        error: itemsError
-      } =
-        await supabaseClient
-          .from("order_items")
-          .insert(orderItems);
+        totalAmount += p.price*q;
 
-
-      if (itemsError) {
-
-        console.error(
-          "Order items save error:",
-          itemsError
-        );
+        items.push({
+          product_id:p.id,
+          quantity:q,
+          unit_price:p.price
+        });
 
       }
 
-    }
+    });
 
+  if (items.length === 0) {
 
-    let msg =
-      "Hello Tarteeb, I would like to order:%0A";
+    toast("Your cart is empty");
+    return;
 
+  }
 
-    Object.entries(cart)
-      .forEach(function ([id, q]) {
+  const orderNumber =
+    "ORD-" +
+    Math.floor(
+      100000 +
+      Math.random()*900000
+    );
 
-        const p =
-          products.find(function (x) {
-            return String(x.id) === String(id);
-          });
+  const {
+    data:orderData,
+    error:orderError
+  } =
+    await supabaseClient
+      .from("orders")
+      .insert([{
+        order_number:orderNumber,
+        subtotal:totalAmount,
+        total:totalAmount,
+        status:"pending"
+      }])
+      .select();
 
+  if (orderError) {
 
-        if (p) {
+    console.error(
+      "Order save error:",
+      orderError
+    );
 
-          msg +=
-            "- " +
-            encodeURIComponent(p.name) +
-            " x" +
-            q +
-            "%0A";
+  } else if (orderData && orderData[0]) {
 
-        }
+    const orderId =
+      orderData[0].id;
+
+    const orderItems =
+      items.map(function(item) {
+
+        return {
+          ...item,
+          order_id:orderId
+        };
 
       });
 
+    const { error:itemsError } =
+      await supabaseClient
+        .from("order_items")
+        .insert(orderItems);
 
-    msg +=
-      "Total: $" +
-      totalAmount.toFixed(2) +
-      "%0AFulfillment: " +
-      encodeURIComponent(fulfill);
-
-
-    window.open(
-      "https://wa.me/" +
-      WA +
-      "?text=" +
-      msg,
-      "_blank"
-    );
-
-
-    cart = {};
-
-    updateCartCount();
-
-    closeModal();
-
-  }
-
-
-  /* ============================================================
-     MODAL
-     ============================================================ */
-
-  function openModal() {
-
-    document
-      .getElementById("modal")
-      .classList.add("show");
-
-  }
-
-
-  function closeModal() {
-
-    document
-      .getElementById("modal")
-      .classList.remove("show");
-
-  }
-
-
-  /* ============================================================
-     REGISTER
-     ============================================================ */
-
-  function openRegister() {
-
-    document.getElementById(
-      "modalContent"
-    ).innerHTML = `
-
-      <h2>
-        ⭐ Exclusive Offers
-      </h2>
-
-      <p>
-        Register free for early access,
-        private offers, bundle discounts
-        and selected member-only deals.
-      </p>
-
-      <div class="field">
-        <label>Name</label>
-        <input id="regName">
-      </div>
-
-      <div class="field">
-        <label>Phone / WhatsApp</label>
-        <input id="regPhone">
-      </div>
-
-      <div class="field">
-        <label>Email</label>
-        <input
-          id="regEmail"
-          type="email">
-      </div>
-
-      <button
-        class="btn primary full"
-        onclick="registerMember()">
-
-        Register via WhatsApp
-
-      </button>
-
-    `;
-
-
-    openModal();
-
-  }
-
-
-  function registerMember() {
-
-    const n =
-      document.getElementById(
-        "regName"
-      ).value.trim();
-
-
-    const p =
-      document.getElementById(
-        "regPhone"
-      ).value.trim();
-
-
-    const e =
-      document.getElementById(
-        "regEmail"
-      ).value.trim();
-
-
-    if (!n || !p) {
-
-      toast(
-        "Please enter name and phone"
+    if (itemsError) {
+      console.error(
+        "Order items save error:",
+        itemsError
       );
-
-      return;
-
-    }
-
-
-    const message =
-      `Hello Tarteeb, I want to register for Exclusive Offers. Name: ${n} Phone: ${p} Email: ${e || "-"}`;
-
-
-    window.open(
-      "https://wa.me/" +
-      WA +
-      "?text=" +
-      encodeURIComponent(message),
-      "_blank"
-    );
-
-
-    closeModal();
-
-  }
-
-
-  /* ============================================================
-     SPECIAL ORDERS
-     ============================================================ */
-
-  function openSpecial() {
-
-    const special =
-      document.getElementById("special");
-
-
-    if (special) {
-
-      special.scrollIntoView({
-        behavior: "smooth"
-      });
-
     }
 
   }
 
+  let msg =
+    "Hello Tarteeb, I would like to order:%0A";
 
-  function specialOrder() {
+  Object.entries(cart)
+    .forEach(function([id,q]) {
 
-    const item =
-      document.getElementById(
-        "reqItem"
-      ).value.trim();
+      const p =
+        products.find(function(x) {
+          return String(x.id) === String(id);
+        });
 
+      if (p) {
 
-    const n =
-      document.getElementById(
-        "reqName"
-      ).value.trim();
+        msg +=
+          "- " +
+          encodeURIComponent(p.name) +
+          " x" +
+          q +
+          "%0A";
 
+      }
 
-    const p =
-      document.getElementById(
-        "reqPhone"
-      ).value.trim();
+    });
 
+  msg +=
+    "Total: $" +
+    totalAmount.toFixed(2) +
+    "%0AFulfillment: " +
+    encodeURIComponent(fulfill);
 
-    const c =
-      document.getElementById(
-        "reqCountry"
-      ).value;
+  window.open(
+    "https://wa.me/" +
+    WA +
+    "?text=" +
+    msg,
+    "_blank"
+  );
 
+  cart = {};
 
-    if (!item || !n || !p) {
+  updateCartCount();
 
-      toast(
-        "Please complete the request"
-      );
+  closeModal();
 
-      return;
-
-    }
-
-
-    const message =
-      `Hello Tarteeb, special order request. Item/link: ${item} Name: ${n} Phone: ${p} Country: ${c}`;
-
-
-    window.open(
-      "https://wa.me/" +
-      WA +
-      "?text=" +
-      encodeURIComponent(message),
-      "_blank"
-    );
-
-  }
+}
 
 
-  /* ============================================================
-     WHOLESALE
-     ============================================================ */
+/* ============================================================
+   MODAL
+   ============================================================ */
 
-  function openWholesale() {
+function openModal() {
 
-    document.getElementById(
-      "modalContent"
-    ).innerHTML = `
+  document
+    .getElementById("modal")
+    .classList.add("show");
 
-      <h2>
-        Wholesale Account
-      </h2>
-
-      <p>
-        Tell us about your business
-        and the categories you want to buy.
-      </p>
-
-      <div class="field">
-        <label>Business name</label>
-        <input id="bName">
-      </div>
-
-      <div class="field">
-        <label>Contact person</label>
-        <input id="bContact">
-      </div>
-
-      <div class="field">
-        <label>Phone / WhatsApp</label>
-        <input id="bPhone">
-      </div>
-
-      <div class="field">
-
-        <label>Business type</label>
-
-        <select id="bType">
-
-          <option>
-            Retail Shop
-          </option>
-
-          <option>
-            Gift Shop
-          </option>
-
-          <option>
-            Supermarket
-          </option>
-
-          <option>
-            Hotel/Restaurant/Cafe
-          </option>
-
-          <option>
-            Office/Corporate
-          </option>
-
-          <option>
-            Salon/Gym
-          </option>
-
-          <option>
-            Online Reseller
-          </option>
-
-          <option>
-            Distributor
-          </option>
-
-        </select>
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          Products / expected quantity
-        </label>
-
-        <textarea id="bNeed"></textarea>
-
-      </div>
-
-      <button
-        class="btn primary full"
-        onclick="sendWholesale()">
-
-        Request wholesale pricing
-
-      </button>
-
-    `;
+}
 
 
-    openModal();
+function closeModal() {
+
+  document
+    .getElementById("modal")
+    .classList.remove("show");
+
+}
+
+
+/* ============================================================
+   REGISTER
+   ============================================================ */
+
+function openRegister() {
+
+  document.getElementById("modalContent").innerHTML = `
+
+    <h2>⭐ Exclusive Offers</h2>
+
+    <p>
+      Register free for early access,
+      private offers, bundle discounts
+      and selected member-only deals.
+    </p>
+
+    <div class="field">
+      <label>Name</label>
+      <input id="regName">
+    </div>
+
+    <div class="field">
+      <label>Phone / WhatsApp</label>
+      <input id="regPhone">
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input id="regEmail" type="email">
+    </div>
+
+    <button
+      class="btn primary full"
+      onclick="registerMember()">
+
+      Register via WhatsApp
+
+    </button>
+
+  `;
+
+  openModal();
+
+}
+
+
+function registerMember() {
+
+  const n =
+    document.getElementById("regName")
+      .value.trim();
+
+  const p =
+    document.getElementById("regPhone")
+      .value.trim();
+
+  const e =
+    document.getElementById("regEmail")
+      .value.trim();
+
+  if (!n || !p) {
+
+    toast("Please enter name and phone");
+    return;
 
   }
 
+  const message =
+    `Hello Tarteeb, I want to register for Exclusive Offers. Name: ${n} Phone: ${p} Email: ${e || "-"}`;
 
-  function sendWholesale() {
+  window.open(
+    "https://wa.me/" +
+    WA +
+    "?text=" +
+    encodeURIComponent(message),
+    "_blank"
+  );
 
-    const n =
-      document.getElementById(
-        "bName"
-      ).value.trim();
+  closeModal();
 
-
-    const c =
-      document.getElementById(
-        "bContact"
-      ).value.trim();
-
-
-    const p =
-      document.getElementById(
-        "bPhone"
-      ).value.trim();
+}
 
 
-    const t =
-      document.getElementById(
-        "bType"
-      ).value;
+/* ============================================================
+   SPECIAL ORDERS
+   ============================================================ */
 
+function openSpecial() {
 
-    const need =
-      document.getElementById(
-        "bNeed"
-      ).value.trim();
+  const special =
+    document.getElementById("special");
 
+  if (special) {
 
-    if (!n || !p) {
-
-      toast(
-        "Please enter business name and phone"
-      );
-
-      return;
-
-    }
-
-
-    const message =
-      `Hello Tarteeb, wholesale inquiry. Business: ${n} Contact: ${c} Phone: ${p} Type: ${t} Needs: ${need}`;
-
-
-    window.open(
-      "https://wa.me/" +
-      WA +
-      "?text=" +
-      encodeURIComponent(message),
-      "_blank"
-    );
-
-
-    closeModal();
+    special.scrollIntoView({
+      behavior:"smooth"
+    });
 
   }
 
-
-  /* ============================================================
-     REVIEWS
-     ============================================================ */
-
-  function openReview() {
-
-    document.getElementById(
-      "modalContent"
-    ).innerHTML = `
-
-      <h2>
-        Leave a review
-      </h2>
-
-      <div class="field">
-        <label>Name</label>
-        <input id="rvName">
-      </div>
-
-      <div class="field">
-        <label>Product</label>
-        <input id="rvProduct">
-      </div>
-
-      <div class="field">
-
-        <label>Rating</label>
-
-        <select id="rvRating">
-
-          <option>5</option>
-          <option>4</option>
-          <option>3</option>
-          <option>2</option>
-          <option>1</option>
-
-        </select>
-
-      </div>
-
-      <div class="field">
-
-        <label>Review</label>
-
-        <textarea id="rvText"></textarea>
-
-      </div>
-
-      <button
-        class="btn primary full"
-        onclick="sendReview()">
-
-        Submit review
-
-      </button>
-
-    `;
+}
 
 
-    openModal();
+function specialOrder() {
+
+  const item =
+    document.getElementById("reqItem")
+      .value.trim();
+
+  const n =
+    document.getElementById("reqName")
+      .value.trim();
+
+  const p =
+    document.getElementById("reqPhone")
+      .value.trim();
+
+  const c =
+    document.getElementById("reqCountry")
+      .value;
+
+  if (!item || !n || !p) {
+
+    toast("Please complete the request");
+    return;
 
   }
 
+  const message =
+    `Hello Tarteeb, special order request. Item/link: ${item} Name: ${n} Phone: ${p} Country: ${c}`;
 
-  function sendReview() {
+  window.open(
+    "https://wa.me/" +
+    WA +
+    "?text=" +
+    encodeURIComponent(message),
+    "_blank"
+  );
 
-    const n =
-      document.getElementById(
-        "rvName"
-      ).value.trim();
-
-
-    const p =
-      document.getElementById(
-        "rvProduct"
-      ).value.trim();
-
-
-    const r =
-      document.getElementById(
-        "rvRating"
-      ).value;
+}
 
 
-    const t =
-      document.getElementById(
-        "rvText"
-      ).value.trim();
+/* ============================================================
+   WHOLESALE
+   ============================================================ */
+
+function openWholesale() {
+
+  document.getElementById("modalContent").innerHTML = `
+
+    <h2>Wholesale Account</h2>
+
+    <p>
+      Tell us about your business
+      and the categories you want to buy.
+    </p>
+
+    <div class="field">
+      <label>Business name</label>
+      <input id="bName">
+    </div>
+
+    <div class="field">
+      <label>Contact person</label>
+      <input id="bContact">
+    </div>
+
+    <div class="field">
+      <label>Phone / WhatsApp</label>
+      <input id="bPhone">
+    </div>
+
+    <div class="field">
+
+      <label>Business type</label>
+
+      <select id="bType">
+        <option>Retail Shop</option>
+        <option>Gift Shop</option>
+        <option>Supermarket</option>
+        <option>Hotel/Restaurant/Cafe</option>
+        <option>Office/Corporate</option>
+        <option>Salon/Gym</option>
+        <option>Online Reseller</option>
+        <option>Distributor</option>
+      </select>
+
+    </div>
+
+    <div class="field">
+
+      <label>Products / expected quantity</label>
+
+      <textarea id="bNeed"></textarea>
+
+    </div>
+
+    <button
+      class="btn primary full"
+      onclick="sendWholesale()">
+
+      Request wholesale pricing
+
+    </button>
+
+  `;
+
+  openModal();
+
+}
 
 
-    if (!n || !t) {
+function sendWholesale() {
 
-      toast(
-        "Please add your name and review"
-      );
+  const n =
+    document.getElementById("bName")
+      .value.trim();
 
-      return;
+  const c =
+    document.getElementById("bContact")
+      .value.trim();
 
-    }
+  const p =
+    document.getElementById("bPhone")
+      .value.trim();
 
+  const t =
+    document.getElementById("bType")
+      .value;
 
-    const message =
-      `Hello Tarteeb, customer review. Name: ${n} Product: ${p} Rating: ${r}/5 Review: ${t}`;
+  const need =
+    document.getElementById("bNeed")
+      .value.trim();
 
-
-    window.open(
-      "https://wa.me/" +
-      WA +
-      "?text=" +
-      encodeURIComponent(message),
-      "_blank"
-    );
-
-
-    closeModal();
+  if (!n || !p) {
 
     toast(
-      "Thank you for your review"
+      "Please enter business name and phone"
     );
+
+    return;
 
   }
 
+  const message =
+    `Hello Tarteeb, wholesale inquiry. Business: ${n} Contact: ${c} Phone: ${p} Type: ${t} Needs: ${need}`;
 
-  /* ============================================================
-     REVIEWS DISPLAY
-     ============================================================ */
+  window.open(
+    "https://wa.me/" +
+    WA +
+    "?text=" +
+    encodeURIComponent(message),
+    "_blank"
+  );
 
-  const reviews = [];
+  closeModal();
 
-  document.getElementById(
-    "reviewGrid"
-  ).innerHTML =
+}
 
-    reviews.length
 
-      ?
+/* ============================================================
+   REVIEWS
+   ============================================================ */
 
-      reviews
-        .map(function (x) {
+function openReview() {
 
-          return `
-            <div class="review">
+  document.getElementById("modalContent").innerHTML = `
 
-              <div>
-                ${escapeHtml(x[2])}
-              </div>
+    <h2>Leave a review</h2>
 
-              <h3>
-                ${escapeHtml(x[0])}
-              </h3>
+    <div class="field">
+      <label>Name</label>
+      <input id="rvName">
+    </div>
 
-              <small>
-                ${escapeHtml(x[1])}
-              </small>
+    <div class="field">
+      <label>Product</label>
+      <input id="rvProduct">
+    </div>
 
-              <p>
-                ${escapeHtml(x[3])}
-              </p>
+    <div class="field">
+      <label>Rating</label>
 
-            </div>
-          `;
+      <select id="rvRating">
+        <option>5</option>
+        <option>4</option>
+        <option>3</option>
+        <option>2</option>
+        <option>1</option>
+      </select>
+    </div>
 
-        })
-        .join("")
+    <div class="field">
+      <label>Review</label>
+      <textarea id="rvText"></textarea>
+    </div>
 
-      :
+    <button
+      class="btn primary full"
+      onclick="sendReview()">
 
-      `
-        <div class="notice">
-          Customer reviews will appear here after verified orders.
-          We do not publish sample testimonials as real reviews.
+      Submit review
+
+    </button>
+
+  `;
+
+  openModal();
+
+}
+
+
+function sendReview() {
+
+  const n =
+    document.getElementById("rvName")
+      .value.trim();
+
+  const p =
+    document.getElementById("rvProduct")
+      .value.trim();
+
+  const r =
+    document.getElementById("rvRating")
+      .value;
+
+  const t =
+    document.getElementById("rvText")
+      .value.trim();
+
+  if (!n || !t) {
+
+    toast(
+      "Please add your name and review"
+    );
+
+    return;
+
+  }
+
+  const message =
+    `Hello Tarteeb, customer review. Name: ${n} Product: ${p} Rating: ${r}/5 Review: ${t}`;
+
+  window.open(
+    "https://wa.me/" +
+    WA +
+    "?text=" +
+    encodeURIComponent(message),
+    "_blank"
+  );
+
+  closeModal();
+
+  toast("Thank you for your review");
+
+}
+
+
+/* ============================================================
+   REVIEWS DISPLAY
+   ============================================================ */
+
+const reviews = [];
+
+document.getElementById("reviewGrid").innerHTML =
+  reviews.length
+
+    ?
+
+    reviews.map(function(x) {
+
+      return `
+        <div class="review">
+
+          <div>${escapeHtml(x[2])}</div>
+
+          <h3>${escapeHtml(x[0])}</h3>
+
+          <small>${escapeHtml(x[1])}</small>
+
+          <p>${escapeHtml(x[3])}</p>
+
         </div>
       `;
 
+    }).join("")
 
-  /* ============================================================
-     LANGUAGE
-     ============================================================ */
+    :
 
-  let lang = "en";
-
-
-  function toggleLang() {
-
-    lang =
-      lang === "en"
-        ? "ar"
-        : "en";
+    `
+      <div class="notice">
+        Customer reviews will appear here after verified orders.
+        We do not publish sample testimonials as real reviews.
+      </div>
+    `;
 
 
-    document.body.classList.toggle(
-      "ar",
-      lang === "ar"
-    );
+/* ============================================================
+   LANGUAGE
+   ============================================================ */
 
+let lang = "en";
 
-    document.documentElement.lang =
-      lang;
+function toggleLang() {
 
+  lang =
+    lang === "en" ? "ar" : "en";
 
-    toast(
-      lang === "ar"
-        ? "تم تغيير اللغة إلى العربية"
-        : "Language changed to English"
-    );
-
-  }
-
-
-  /* ============================================================
-     MOBILE MENU
-     ============================================================ */
-
-  function toggleMobileMenu() {
-
-    const m =
-      document.getElementById(
-        "mobileMenu"
-      );
-
-
-    if (m) {
-      m.classList.toggle("open");
-    }
-
-  }
-
-
-  /* ============================================================
-     SECURITY HELPERS
-     ============================================================ */
-
-  function escapeHtml(value) {
-
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  function escapeAttribute(value) {
-
-    return escapeHtml(value);
-
-  }
-
-
-  /* ============================================================
-     SUPABASE CONNECTION TEST
-     ============================================================ */
-
-  console.log(
-    "Tarteeb connected to Supabase:",
-    supabaseClient
+  document.body.classList.toggle(
+    "ar",
+    lang === "ar"
   );
+
+  document.documentElement.lang =
+    lang;
+
+  toast(
+    lang === "ar"
+      ? "تم تغيير اللغة إلى العربية"
+      : "Language changed to English"
+  );
+
+}
+
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+
+function toggleMobileMenu() {
+
+  const m =
+    document.getElementById("mobileMenu");
+
+  if (m) {
+    m.classList.toggle("open");
+  }
+
+}
+
+
+/* ============================================================
+   SECURITY
+   ============================================================ */
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value);
+}
+
+
+/* ============================================================
+   SUPABASE CONNECTION
+   ============================================================ */
+
+console.log(
+  "Tarteeb connected to Supabase:",
+  supabaseClient
+);
 
 </script>
 
