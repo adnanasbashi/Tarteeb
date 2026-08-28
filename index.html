@@ -1,41 +1,46 @@
-// PWA Install Prompt
+// ===============================
+// PWA INSTALL
+// ===============================
+
 let deferredPrompt = null;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
+window.addEventListener('beforeinstallprompt', (event) => {
+  console.log('beforeinstallprompt fired');
 
+  // Stop Chrome from showing its automatic mini-infobar.
+  event.preventDefault();
+
+  // Save the event for our Install button.
+  deferredPrompt = event;
+
+  // Show our Install button.
   const installBtn = document.getElementById('installBtn');
 
   if (installBtn) {
     installBtn.style.display = 'inline-block';
   }
 
-  console.log('PWA install prompt is ready.');
+  console.log('PWA install prompt saved.');
 });
 
 async function installApp() {
+
+  console.log('Install button clicked.');
+
   if (!deferredPrompt) {
+    console.log('No deferred PWA prompt available.');
     toast('Install option is not available yet.');
     return;
   }
 
-  try {
-    deferredPrompt.prompt();
+  // Show Chrome's installation dialog.
+  deferredPrompt.prompt();
 
-    const { outcome } = await deferredPrompt.userChoice;
+  const { outcome } = await deferredPrompt.userChoice;
 
-    console.log('PWA install result:', outcome);
+  console.log('PWA install result:', outcome);
 
-    if (outcome === 'accepted') {
-      toast('Tarteeb installed successfully!');
-    } else {
-      toast('Installation cancelled.');
-    }
-  } catch (error) {
-    console.error('PWA installation error:', error);
-  }
-
+  // The prompt can only be used once.
   deferredPrompt = null;
 
   const installBtn = document.getElementById('installBtn');
@@ -46,7 +51,8 @@ async function installApp() {
 }
 
 window.addEventListener('appinstalled', () => {
-  console.log('Tarteeb PWA installed.');
+
+  console.log('Tarteeb PWA installed successfully.');
 
   deferredPrompt = null;
 
@@ -56,5 +62,5 @@ window.addEventListener('appinstalled', () => {
     installBtn.style.display = 'none';
   }
 
-  toast('Tarteeb is now installed!');
+  toast('Tarteeb installed successfully!');
 });
