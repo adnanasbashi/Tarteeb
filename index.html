@@ -8,6 +8,8 @@
   <meta name="description" content="Tarteeb — useful products for home, kitchen, cleaning, smart living and wellness. Lebanon delivery, pickup and special orders.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#53654a">
+  
+  <!-- Modern standard PWA meta tag (Replaced deprecated apple-mobile-web-app-capable) -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Tarteeb">
@@ -78,7 +80,7 @@
     .body p { color: var(--muted); font-size: 13px; min-height: 38px; }
     .price { font-size: 20px; font-weight: 800; margin: 10px 0; }
     .row { display: flex; gap: 7px; align-items: center; }
-    .qty { width: 65px; padding: 99px; border: 1px solid var(--line); border-radius: 8px; }
+    .qty { width: 65px; padding: 9px; border: 1px solid var(--line); border-radius: 8px; }
     .full { width: 100%; }
     .feature-grid, .review-grid, .b2b-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .feature, .review, .b2b { background: var(--card); border: 1px solid var(--line); border-radius: 17px; padding: 20px; }
@@ -385,31 +387,30 @@
   let cart = {};
   let activeCat = 'all';
 
-  // Handling PWA Install Prompt Event
-  let deferredPrompt = null;
+  // PWA Prompt Management
+  let deferredPrompt;
+
   window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the mini-infobar from appearing automatically on mobile
+    // Prevent standard banner prompt
     e.preventDefault();
-    // Save the event so it can be triggered later
+    // Stash the event so it can be triggered on user action
     deferredPrompt = e;
-    // Show the install button in the navbar
-    const btn = document.getElementById('installBtn');
-    if (btn) btn.style.display = 'inline-block';
+    // Reveal the Install action button
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) installBtn.style.display = 'inline-block';
   });
 
   async function installApp() {
     if (!deferredPrompt) {
-      toast('Installation not available or app is already installed.');
+      toast('App is already installed or prompt unavailable.');
       return;
     }
-    // Show the native browser install prompt
+    // Show prompt to user
     deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === 'accepted') {
       toast('Thank you for installing Tarteeb!');
     }
-    // Reset the deferred prompt variable
     deferredPrompt = null;
     document.getElementById('installBtn').style.display = 'none';
   }
@@ -417,7 +418,6 @@
   window.addEventListener('appinstalled', () => {
     deferredPrompt = null;
     document.getElementById('installBtn').style.display = 'none';
-    console.log('PWA was installed successfully');
   });
 
   async function loadCategoriesFromSupabase() {
@@ -467,7 +467,7 @@
     }
   }
 
-  // Load Categories & Products on Startup
+  // Initial Data Load
   loadCategoriesFromSupabase();
   loadProductsFromSupabase();
 
@@ -584,7 +584,6 @@
       return;
     }
 
-    // Save order directly to Supabase orders table
     const orderNumber = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
     const { data: orderData, error: orderError } = await supabaseClient
       .from('orders')
@@ -602,10 +601,8 @@
       const orderId = orderData[0].id;
       const orderItems = items.map(item => ({ ...item, order_id: orderId }));
       await supabaseClient.from('order_items').insert(orderItems);
-      console.log("Order saved successfully:", orderId);
     }
 
-    // Format WhatsApp Message & Open
     let msg = 'Hello Tarteeb, I would like to order:%0A';
     Object.entries(cart).forEach(([id, q]) => {
       let p = products.find(x => x.id === id);
