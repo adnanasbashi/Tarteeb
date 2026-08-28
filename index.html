@@ -371,7 +371,7 @@
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
   const WA = '9613080365';
-  const cats = [
+  let cats = [
     ['all', 'All', '✨'],
     ['home', 'Home', '🏠'],
     ['kitchen', 'Kitchen', '🍳'],
@@ -385,34 +385,31 @@
   let cart = {};
   let activeCat = 'all';
 
-async function loadCategoriesFromSupabase() {
-  const { data, error } = await supabaseClient
-    .from("categories")
-    .select("*");
+  async function loadCategoriesFromSupabase() {
+    const { data, error } = await supabaseClient
+      .from("categories")
+      .select("*");
 
-  if (error) {
-    console.error("Error fetching categories:", error);
-    return;
+    if (error) {
+      console.error("Error fetching categories:", error);
+      return;
+    }
+
+    if (data && data.length > 0) {
+      const dynamicCats = data.map(c => [
+        c.id,
+        c.name_en || c.name_ar,
+        '✨'
+      ]);
+      
+      cats = [['all', 'All', '✨'], ...dynamicCats];
+      renderCats();
+    }
   }
 
-  if (data && data.length > 0) {
-    // Map Supabase categories to store structure
-    const dynamicCats = data.map(c => [
-      c.id,
-      c.name_en || c.name_ar,
-      '✨' // default icon
-    ]);
-    
-    // Include 'All' at the start
-    cats.length = 0;
-    cats.push(['all', 'All', '✨'], ...dynamicCats);
-    renderCats();
-  }
-}
-
-// Call both loaders on page load
-loadCategoriesFromSupabase();
-loadProductsFromSupabase();      .from("products")
+  async function loadProductsFromSupabase() {
+    const { data, error } = await supabaseClient
+      .from("products")
       .select("*")
       .eq("active", true);
 
@@ -435,6 +432,10 @@ loadProductsFromSupabase();      .from("products")
       render();
     }
   }
+
+  // Load Categories & Products on Startup
+  loadCategoriesFromSupabase();
+  loadProductsFromSupabase();
 
   function toast(x) {
     let t = document.getElementById('toast');
@@ -531,39 +532,45 @@ loadProductsFromSupabase();      .from("products")
     document.getElementById('deliveryChoice').style.display = document.getElementById('fulfill').value === 'pickup' ? 'none' : 'block';
   }
 
-async function checkout() {
-  let fulfill = document.getElementById('fulfill').value;
-  let total = 0;
-  let items = [];
+  async function checkout() {
+    let fulfill = document.getElementById('fulfill').value;
+    let totalAmount = 0;
+    let items = [];
 
-  Object.entries(cart).forEach(([id, q]) => {
-    let p = products.find(x => x.id === id);
-    if (p) {
-      total += p.price * q;
-      items.push({ product_id: p.id, quantity: q, unit_price: p.price });
+    Object.entries(cart).forEach(([id, q]) => {
+      let p = products.find(x => x.id === id);
+      if (p) {
+        totalAmount += p.price * q;
+        items.push({ product_id: p.id, quantity: q, unit_price: p.price });
+      }
+    });
+
+    // Save order to Supabase orders table matching existing schema
+    const { data: orderData, error: orderError } = await supabaseClient
+      .from('orders')
+      .insert([{ 
+        total: totalAmount,
+        subtotal: totalAmount,
+        status: 'pending' 
+      }])
+      .select();
+
+    if (orderError) {
+      console.error("Order save error:", orderError);
+    } else {
+      console.log("Order saved successfully:", orderData);
     }
-  });
 
-  // 1. Save order to Supabase
-  const { data: orderData, error: orderError } = await supabaseClient
-    .from('orders')
-    .insert([{ total_amount: total, fulfillment_method: fulfill, status: 'pending' }])
-    .select();
+    // Format WhatsApp Message & Open
+    let msg = 'Hello Tarteeb, I would like to order:%0A';
+    Object.entries(cart).forEach(([id, q]) => {
+      let p = products.find(x => x.id === id);
+      if (p) msg += `- ${encodeURIComponent(p.name)} x${q}%0A`;
+    });
+    msg += `Total: $${totalAmount.toFixed(2)}%0AFulfillment: ${fulfill}`;
 
-  if (orderError) {
-    console.error("Order save error:", orderError);
+    window.open('https://wa.me/' + WA + '?text=' + msg, '_blank');
   }
-
-  // 2. Format WhatsApp Message & Open
-  let msg = 'Hello Tarteeb, I would like to order:%0A';
-  Object.entries(cart).forEach(([id, q]) => {
-    let p = products.find(x => x.id === id);
-    if (p) msg += `- ${encodeURIComponent(p.name)} x${q}%0A`;
-  });
-  msg += `Total: $${total.toFixed(2)}%0AFulfillment: ${fulfill}`;
-
-  window.open('https://wa.me/' + WA + '?text=' + msg, '_blank');
-}
 
   function openModal() { document.getElementById('modal').classList.add('show'); }
   function closeModal() { document.getElementById('modal').classList.remove('show'); }
@@ -666,25 +673,16 @@ async function checkout() {
     if (b) b.style.display = 'inline-block';
   });
 
-  async function installApp() {
-    if (!deferredInstallPrompt) {
-      toast('Use your browser menu and choose Add to Home Screen / Install Tarteeb');
-      return;
+  function installApp() {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(() => {
+        deferredInstallPrompt = null;
+        const b = document.getElementById('installBtn');
+        if (b) b.style.display = 'none';
+      });
     }
-    deferredInstallPrompt.prompt();
-    await deferredInstallPrompt.userChoice;
-    deferredInstallPrompt = null;
-    const b = document.getElementById('installBtn');
-    if (b) b.style.display = 'none';
   }
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-  }
-
-  // Initialize
-  renderCats();
-  loadProductsFromSupabase();
 </script>
 </body>
 </html>
