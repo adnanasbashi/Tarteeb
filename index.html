@@ -531,17 +531,39 @@ loadProductsFromSupabase();      .from("products")
     document.getElementById('deliveryChoice').style.display = document.getElementById('fulfill').value === 'pickup' ? 'none' : 'block';
   }
 
-  function checkout() {
-    let msg = 'Hello Tarteeb, I would like to order:%0A';
-    let total = 0;
-    Object.entries(cart).forEach(([id, q]) => {
-      let p = products.find(x => x.id === id);
+async function checkout() {
+  let fulfill = document.getElementById('fulfill').value;
+  let total = 0;
+  let items = [];
+
+  Object.entries(cart).forEach(([id, q]) => {
+    let p = products.find(x => x.id === id);
+    if (p) {
       total += p.price * q;
-      msg += `- ${encodeURIComponent(p.name)} x${q}%0A`;
-    });
-    msg += `Total: $${total.toFixed(2)}%0AFulfillment: ${document.getElementById('fulfill').value}`;
-    window.open('https://wa.me/' + WA + '?text=' + msg, '_blank');
+      items.push({ product_id: p.id, quantity: q, unit_price: p.price });
+    }
+  });
+
+  // 1. Save order to Supabase
+  const { data: orderData, error: orderError } = await supabaseClient
+    .from('orders')
+    .insert([{ total_amount: total, fulfillment_method: fulfill, status: 'pending' }])
+    .select();
+
+  if (orderError) {
+    console.error("Order save error:", orderError);
   }
+
+  // 2. Format WhatsApp Message & Open
+  let msg = 'Hello Tarteeb, I would like to order:%0A';
+  Object.entries(cart).forEach(([id, q]) => {
+    let p = products.find(x => x.id === id);
+    if (p) msg += `- ${encodeURIComponent(p.name)} x${q}%0A`;
+  });
+  msg += `Total: $${total.toFixed(2)}%0AFulfillment: ${fulfill}`;
+
+  window.open('https://wa.me/' + WA + '?text=' + msg, '_blank');
+}
 
   function openModal() { document.getElementById('modal').classList.add('show'); }
   function closeModal() { document.getElementById('modal').classList.remove('show'); }
